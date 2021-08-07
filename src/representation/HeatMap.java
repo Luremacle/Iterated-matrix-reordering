@@ -1,6 +1,6 @@
 package representation;
 
-import utils.Utils;
+import java.util.Random;
 
 public class HeatMap {
     
@@ -30,7 +30,7 @@ public class HeatMap {
     public int[] getRow(int row) {
         int[] r = new int[col_order.length];
         for(int i = 0; i < r.length; i++) {
-            r[i] = rep.get(row, i);
+            r[i] = rep.get(row_order[row], i);
         }
         return r;
     }
@@ -38,7 +38,7 @@ public class HeatMap {
     public double[] getRowDouble(int row) {
         double[] r = new double[col_order.length];
         for(int i = 0; i < r.length; i++) {
-            r[i] = rep.getDouble(row, i);
+            r[i] = rep.getDouble(row_order[row], i);
         }
         return r;
     }
@@ -46,7 +46,7 @@ public class HeatMap {
     public int[] getCol(int col) {
         int[] c = new int[row_order.length];
         for(int i = 0; i < c.length; i++) {
-            c[i] = rep.get(i, col);
+            c[i] = rep.get(i, col_order[col]);
         }
         return c;
     }
@@ -54,14 +54,14 @@ public class HeatMap {
     public double[] getColDouble(int col) {
         double[] c = new double[row_order.length];
         for(int i = 0; i < c.length; i++) {
-            c[i] = rep.getDouble(i, col);
+            c[i] = rep.getDouble(i, col_order[col]);
         }
         return c;
     }
     
     public void shuffle() {
-        Utils.shuffle(col_order);
-        Utils.shuffle(row_order);
+        shuffle(col_order);
+        shuffle(row_order);
     }
     
     public int[][] toArrayInt() {
@@ -109,5 +109,15 @@ public class HeatMap {
             res[r] = rep.colLabels[col_order[r]];
         }
         return res;
+    }
+    
+    private static void shuffle(int[] array) {
+        Random rand = new Random();
+        for (int i = 0; i < array.length; i++) {
+            int randomIndexToSwap = rand.nextInt(array.length);
+            int temp = array[randomIndexToSwap];
+            array[randomIndexToSwap] = array[i];
+            array[i] = temp;
+        }
     }
 }

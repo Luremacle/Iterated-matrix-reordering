@@ -1,6 +1,6 @@
 package convolution;
 
-import utils.Utils;
+import utils.Otsu;
 
 public class Convolution {
     
@@ -117,7 +117,7 @@ public class Convolution {
     }
 
     public int[][] OTSUThreshold(double[][] matrix) {
-        double threshold = Utils.otsu(matrix);
+        double threshold = Otsu.otsu(matrix);
         return threshold(matrix, threshold);
     }
     

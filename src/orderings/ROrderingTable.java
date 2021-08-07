@@ -1,5 +1,6 @@
 package orderings;
 import representation.HeatMap;
+import utils.Distances;
 
 public class ROrderingTable extends MatrixOrdering {
     public String method;
@@ -13,14 +14,14 @@ public class ROrderingTable extends MatrixOrdering {
     public void solve() {
         int[] new_r_order, new_c_order;
         if(!hm.rep.discrete) {
-            double[][] row_distances = utils.Utils.getDistancesContinuous(hm, 'r');
-            double[][] col_distances = utils.Utils.getDistancesContinuous(hm, 'c');
+            double[][] row_distances = Distances.getDistancesContinuous(hm, 'r');
+            double[][] col_distances = Distances.getDistancesContinuous(hm, 'c');
             new_r_order = SeriationHelper.callRScript(row_distances, method, true);
             new_c_order = SeriationHelper.callRScript(col_distances, method, true);
         }       
         else {
-            int[][] row_distances = utils.Utils.getDistances(hm, 'r');
-            int[][] col_distances = utils.Utils.getDistances(hm, 'c');
+            int[][] row_distances = Distances.getDistances(hm, 'r');
+            int[][] col_distances = Distances.getDistances(hm, 'c');
             // Seriation R library needs numeric value for some methods (OLO, ...)
             new_r_order = SeriationHelper.callRScript(convert(row_distances), method, true);
             new_c_order = SeriationHelper.callRScript(convert(col_distances), method, true);

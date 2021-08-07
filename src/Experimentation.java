@@ -38,8 +38,8 @@ public class Experimentation {
         c.NETWORK = false;
         c.SMOOTHING = true;
         c.THRESHOLD  = true; // mandatory for bary, nested
-        c.PRELIMINARY_METHOD = "GW_complete";
-        c.EMBEDDED_METHOD = "GW_complete";
+        c.PRELIMINARY_METHOD = "OLO";
+        c.EMBEDDED_METHOD = "OLO";
         c.CRITERION = "GBS_49"; // GBS_25 for mammals
         /*c.KERNELS = new String[]{
             "GBE_3","GBS_3","GBS_5",
@@ -68,8 +68,8 @@ public class Experimentation {
         DiscreteRepresentation m;
         
         // Tables:
-        m = DataLoader.Pareto();
-        //m = DataLoader.Banded();
+        //m = DataLoader.Pareto();
+        m = DataLoader.Banded();
         //m = DataLoader.Triangles();
         //m = DataLoader.Blocks();
         //m = DataLoader.loadMammals();
@@ -88,7 +88,7 @@ public class Experimentation {
         HeatMap hm = new HeatMap(m);
         System.out.println("Original score criterion: " + c.getScore(hm));
         GuiHelper.showHeatMap(hm, "original");
-        hm.shuffle(); //optional - may impact scores for some methods
+        //hm.shuffle(); //optional - may impact scores for some methods
         GuiHelper.showHeatMap(hm, "shuffled");
         HeatMap result = or.Order(hm);
         GuiHelper.showHeatMap(result, "Final order - score: " + c.getScore(result));

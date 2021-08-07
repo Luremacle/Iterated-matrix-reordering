@@ -19,12 +19,11 @@ public class BarycentricOrdering extends MatrixOrdering {
                 Pair[] row = new Pair[hm.row_order.length];
                 int[] order = HELPER(hm.col_order);
                 for(int i = 0; i < row.length; i++) {
-                    int index = hm.row_order[i];
-                    int[] r = hm.getRow(index);
+                    int[] r = hm.getRow(i);
                     int count = count(r);
                     int bary = bary(r, order);
                     double score = count == 0 ? 0.0 : 1.0 * bary / count;
-                    row[i] = new Pair(index, score);
+                    row[i] = new Pair(hm.row_order[i], score);
                 }  
                 Arrays.sort(row);
                 hm.row_order = extract(row);
@@ -32,12 +31,11 @@ public class BarycentricOrdering extends MatrixOrdering {
                 Pair[] col = new Pair[hm.col_order.length];
                 int[] order = HELPER(hm.row_order);
                 for(int i = 0; i < col.length; i++) {
-                    int index = hm.col_order[i];
-                    int[] c = hm.getCol(index);
+                    int[] c = hm.getCol(i);
                     int count = count(c);
                     int bary = bary(c, order);
                     double score = count == 0 ? 0.0 : 1.0 * bary / count;
-                    col[i] = new Pair(index, score);
+                    col[i] = new Pair(hm.col_order[i], score);
                 }  
                 Arrays.sort(col);
                 hm.col_order = extract(col);

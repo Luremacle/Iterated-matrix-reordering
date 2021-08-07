@@ -25,14 +25,10 @@ public class NestedOrdering extends MatrixOrdering{
     public void solve() {
         Pair[] row = new Pair[hm.row_order.length];
         Pair[] col = new Pair[hm.col_order.length];
-        for(int i = 0; i < row.length; i++) {
-            int index = hm.row_order[i];
-            row[i] = new Pair(index, count(hm.getRow(index)));
-        }
-        for(int i = 0; i < col.length; i++) {
-            int index = hm.col_order[i];
-            col[i] = new Pair(index, count(hm.getCol(index)));
-        }
+        for(int i = 0; i < row.length; i++)
+            row[i] = new Pair(hm.row_order[i], count(hm.getRow(i)));
+        for(int i = 0; i < col.length; i++)
+            col[i] = new Pair(hm.col_order[i], count(hm.getCol(i)));
         Arrays.sort(row);
         Arrays.sort(col);
         hm.row_order = extract(row);

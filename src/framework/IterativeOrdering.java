@@ -74,10 +74,10 @@ public class IterativeOrdering {
         embedded.solve();
         // Renoising
         temp = reorder(best, embedded.getHeatMap());
+        double s0 = config.getScore(temp);
+        temp.score = s0;
         // Smoothing
         if(config.SMOOTHING) {
-            double s0 = config.getScore(temp);
-            temp.score = s0;
             MatrixOrdering smoothing = config.getSmoothOrdering(temp, embedded.getHeatMap());
             smoothing.solve();
             double s1 = config.getScore(smoothing.getHeatMap());
