@@ -26,7 +26,8 @@ public class SeriationHelper {
     
     public final static String SCRIPT0 = "R/seriation_asdist.r";
     public final static String SCRIPT1 = "R/seriation_dist.r";
-    public final static String PATH = "/Library/Frameworks/R.framework/Versions/4.0/Resources/Rscript";
+    // public final static String PATH = "/Library/Frameworks/R.framework/Versions/4.0/Resources/Rscript";
+    public final static String PATH = "C:/Program Files/R/R-4.2.1/bin/x64/Rscript.exe";
 
     public static int[] callRScript(double[][] entry, String method, boolean asDist) {
         File o = new File("R/row.order"); o.delete(); // delete last order
