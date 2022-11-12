@@ -3,6 +3,8 @@ import framework.Configuration;
 import framework.IterativeOrdering;
 import gui.GuiHelper;
 import java.io.IOException;
+
+import representation.ContinuousRepresentation;
 import representation.DiscreteRepresentation;
 import representation.HeatMap;
 
@@ -40,7 +42,7 @@ public class Experimentation {
         c.THRESHOLD  = true; // mandatory for bary, nested
         c.PRELIMINARY_METHOD = "OLO";
         c.EMBEDDED_METHOD = "OLO";
-        c.CRITERION = "GBS_49"; // GBS_25 for mammals
+        c.CRITERION = "GBS_49"; // GBS_25 for mammals, GBS_49 originally
         /*c.KERNELS = new String[]{
             "GBE_3","GBS_3","GBS_5",
             "GBE_25","GBS_25","GBE_5",
@@ -66,30 +68,33 @@ public class Experimentation {
     public static void main (String [] args) throws IOException {
         Configuration c = getConfig();
         DiscreteRepresentation m;
+        // ContinuousRepresentation m;
         
         // Tables:
-        //m = DataLoader.Pareto();
-        m = DataLoader.Banded();
-        //m = DataLoader.Triangles();
-        //m = DataLoader.Blocks();
-        //m = DataLoader.loadMammals();
+        // m = DataLoader.Pareto();
+        // m = DataLoader.Banded();
+        m = DataLoader.Triangles();
+        // m = DataLoader.Blocks();
+        // m = DataLoader.loadMammals();
+
+        // m = DataLoader.zones();
         
         // Networks: (set NETWORK flag true !)
-        //m = DataLoader.loadNet0(); // assortative
-        //m = DataLoader.loadNet1(); // core-periphery
+        // m = DataLoader.loadNet0(); // assortative
+        // m = DataLoader.loadNet1(); // core-periphery
         //m = DataLoader.loadNet2(); // dissassortative
         //m = DataLoader.loadNet3(); // ordered
-        //m = DataLoader.loadNetwork("src/datasets/blogs_net", "src/datasets/blogs_labels");
-        //m = DataLoader.loadNetwork("src/datasets/india_net", "src/datasets/india_labels");
-        //m = DataLoader.loadNetwork("src/datasets/mails_net", "src/datasets/mails_labels");
-        //m = DataLoader.loadNetwork("src/datasets/news_net", "src/datasets/news_labels");
+        // m = DataLoader.loadNetwork("src/datasets/blogs_net", "src/datasets/blogs_labels");
+        // m = DataLoader.loadNetwork("src/datasets/india_net", "src/datasets/india_labels");
+        // m = DataLoader.loadNetwork("src/datasets/mails_net", "src/datasets/mails_labels");
+        // m = DataLoader.loadNetwork("src/datasets/news_net", "src/datasets/news_labels");
         
         IterativeOrdering or = new IterativeOrdering(c);
         HeatMap hm = new HeatMap(m);
         System.out.println("Original score criterion: " + c.getScore(hm));
         GuiHelper.showHeatMap(hm, "original");
-        //hm.shuffle(); //optional - may impact scores for some methods
-        GuiHelper.showHeatMap(hm, "shuffled");
+        // hm.shuffle(); //optional - may impact scores for some methods
+        // GuiHelper.showHeatMap(hm, "shuffled");
         HeatMap result = or.Order(hm);
         GuiHelper.showHeatMap(result, "Final order - score: " + c.getScore(result));
     }

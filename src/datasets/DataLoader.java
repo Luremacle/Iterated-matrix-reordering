@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
+import representation.ContinuousRepresentation;
 import representation.DiscreteRepresentation;
 
 
@@ -108,6 +110,7 @@ public class DataLoader {
         for(int i = 0; i < size; i++)
             labels[i] = Integer.parseInt(split[i]);
         
+        br.close();
         br = new BufferedReader(new FileReader(file_net));
         st = br.readLine();
         while(st != null) {
@@ -117,6 +120,7 @@ public class DataLoader {
             buffer[x][y] = 1; buffer[y][x] = 1;
             st = br.readLine();
         }
+        br.close();
         DiscreteRepresentation dr = new DiscreteRepresentation(buffer);
         dr.colLabels = labels; dr.rowLabels = labels;
         return dr;
@@ -136,7 +140,21 @@ public class DataLoader {
             st = br.readLine();
             r++;
         }
+        br.close();
         DiscreteRepresentation dr = new DiscreteRepresentation(buffer);
         return dr;
+    }
+
+    public static ContinuousRepresentation zones() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation z = new ContinuousRepresentation(400, 400);
+        m.rectangle(0, 0, 200, 200, 0.2);
+        x.rectangle(200, 0, 400, 200, 0.4);
+        y.rectangle(0, 200, 200, 400, 0.6);
+        z.rectangle(200, 200, 400, 400, 0.8);
+        m.addRep(x); m.addRep(y); m.addRep(z);
+        return m;
     }
 }

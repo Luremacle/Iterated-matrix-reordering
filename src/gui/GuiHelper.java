@@ -13,14 +13,20 @@ public class GuiHelper {
 	final JLabel status = new JLabel("Starting up...");
 	statusBar.add(status);
 	JFrame frame = new JFrame(name);
-        if(!hm.rep.discrete) {
-            return;
+        if(hm.rep.discrete) {
+            BinaryGUI mandel = new BinaryGUI(status, hm.toArray());
+            mandel.rowLabels = hm.getRowLabels();
+            mandel.colLabels = hm.getColLabels();
+            frame.add(mandel);
+            frame.addKeyListener(mandel);
         }
-        BinaryGUI mandel = new BinaryGUI(status, hm.toArray());
-        mandel.rowLabels = hm.getRowLabels();
-        mandel.colLabels = hm.getColLabels();
-        frame.add(mandel);
-        frame.addKeyListener(mandel);
+        else{
+            ContinuousGUI mandel = new ContinuousGUI(status, hm.toArray());
+            mandel.rowLabels = hm.getRowLabels();
+            mandel.colLabels = hm.getColLabels();
+            frame.add(mandel);
+            frame.addKeyListener(mandel);
+        }
         frame.setSize(301, (int) (300 + 22));
         frame.setVisible(true);
     }
