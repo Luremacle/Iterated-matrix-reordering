@@ -19,7 +19,7 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
     private final JLabel status;
     private static final long serialVersionUID = 1L;
     private boolean toDrag = false;
-    private boolean SMOOTH = true;
+    private boolean SMOOTH = false;
     private Image image; // offscreen image for double buffering
     private Graphics graphics; // offscreen graphics for the offscreen image
     private int width, height; // current screen width and height
@@ -28,7 +28,7 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
     private int mouseX, mouseY;
     private int dragX, dragY;
     double w0, w1, h0, h1;
-    int[][] matrix, original;
+    double[][] matrix, original;
 
     public int[] rowLabels, colLabels;
     private boolean labels = true;
@@ -48,7 +48,7 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
             new Color(255, 255, 255)
     };
 
-    public ContinuousGUI(JLabel status, int[][] m) {
+    public ContinuousGUI(JLabel status, double[][] m) {
         super(true);
         this.status = status;
         this.matrix = m;
@@ -61,6 +61,15 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
         addMouseMotionListener(this);
         rowLabels = new int[m.length];
         colLabels = new int[m[0].length];
+    }
+
+    public static void printMat(double[][] myMat) {
+        for (int i = 0; i < myMat.length; i++) {
+            for (int j = 0; j < myMat[0].length; j++) {
+                System.out.print(myMat[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     private void draw() {
@@ -111,6 +120,8 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
         int a_odd = (a % 2 == 0) ? a + 1 : a;
         int b_odd = (b % 2 == 0) ? b + 1 : b;
 
+        // printMat(matrix);
+
         for (int r = 0; r < heightMinus; r++) {
             for (int c = 0; c < widthMinus; c++) {
                 double q = (1.0 * r / surface.length) * matrix.length;
@@ -135,11 +146,14 @@ public final class ContinuousGUI extends JPanel implements MouseListener, MouseM
                 }
             }
         }
+
+        // printMat(surface);
         // Color attribution
         for (int i = 0; i < heightMinus; i++) { // i < hm.rep.size
             for (int j = 0; j < widthMinus; j++) {
                 try {
                     pixels[i][j] = palette[pal].color(surface[i][j]);
+                    // if (surface[i][j] != 0){System.out.println(surface[i][j]);}
                 } catch (Exception e) {
                     pixels[i][j] = new Color(0, 0, 0);
                 }

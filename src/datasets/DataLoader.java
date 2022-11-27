@@ -47,6 +47,14 @@ public class DataLoader {
         m.addNoise(0.2,0.2);
         return m;
     }
+
+    public static ContinuousRepresentation testBanded() {
+        ContinuousRepresentation m = new ContinuousRepresentation(300, 300);
+        m.band(60, 1);
+        double[] possVal = {0, 1};
+        m.addNoise(possVal, 0.2);
+        return m;
+    }
     
     public static DiscreteRepresentation loadNet0() {
         DiscreteRepresentation m = new DiscreteRepresentation(500,500);
@@ -145,16 +153,56 @@ public class DataLoader {
         return dr;
     }
 
-    public static ContinuousRepresentation zones() {
+    public static ContinuousRepresentation zonesRectangle() {
         ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation z = new ContinuousRepresentation(400, 400);
-        m.rectangle(0, 0, 200, 200, 0.2);
-        x.rectangle(200, 0, 400, 200, 0.4);
+        m.rectangle(0, 0, 200, 200, 0);
+        x.rectangle(200, 0, 400, 200, 0.3);
         y.rectangle(0, 200, 200, 400, 0.6);
-        z.rectangle(200, 200, 400, 400, 0.8);
+        z.rectangle(200, 200, 400, 400, 0.9);
         m.addRep(x); m.addRep(y); m.addRep(z);
+
+        double[] possVal = {0, 0.3, 0.6, 0.9};
+        m.addNoise(possVal, 0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation zonesTriangle() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation z = new ContinuousRepresentation(400, 400);
+        m.triangle(0, 0, 0, 200, 200, 0, 0.6);
+        x.triangle(400, 0, 400, 200, 200, 0, 0.2);
+        y.triangle(0, 200, 0, 400, 200, 400, 0.4);
+        z.triangle(200, 400, 400, 400, 400, 200, 0.8);
+        m.addRep(x);
+        m.addRep(y);
+        m.addRep(z);
+
+        double[] possVal = {0, 0.2, 0.4, 0.6, 0.8};
+        m.addNoise(possVal, 0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation zonesTriangle2() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation z = new ContinuousRepresentation(400, 400);
+        m.triangle(0, 0, 135, 20, 30, 200, 0.6);
+        x.rectangle(30, 20, 135, 200, 0.2);
+        // x.triangle(400, 0, 400, 200, 200, 200, 0.2);
+        // y.triangle(0, 200, 0, 400, 200, 400, 0.4);
+        // z.triangle(200, 400, 400, 400, 400, 200, 0.8);
+        m.addRep(x);
+        m.addRep(y);
+        m.addRep(z);
+
+        double[] possVal = { 0, 0.2, 0.4, 0.6, 0.8 };
+        // m.addNoise(possVal, 0.2);qq
         return m;
     }
 }

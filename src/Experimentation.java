@@ -36,7 +36,7 @@ public class Experimentation {
     public static Configuration getConfig() {
         Configuration c = new Configuration();
         c.MAX_ITERATIONS = 50;
-        c.TYPE = 'b';
+        c.TYPE = 'n';
         c.NETWORK = false;
         c.SMOOTHING = true;
         c.THRESHOLD  = true; // mandatory for bary, nested
@@ -67,17 +67,19 @@ public class Experimentation {
     */
     public static void main (String [] args) throws IOException {
         Configuration c = getConfig();
-        DiscreteRepresentation m;
-        // ContinuousRepresentation m;
+        // DiscreteRepresentation m;
+        ContinuousRepresentation m;
         
         // Tables:
         // m = DataLoader.Pareto();
         // m = DataLoader.Banded();
-        m = DataLoader.Triangles();
+        // m = DataLoader.Triangles();
         // m = DataLoader.Blocks();
         // m = DataLoader.loadMammals();
 
-        // m = DataLoader.zones();
+        // m = DataLoader.zonesRectangle();
+        m = DataLoader.zonesTriangle();
+        // m = DataLoader.testBanded();
         
         // Networks: (set NETWORK flag true !)
         // m = DataLoader.loadNet0(); // assortative
