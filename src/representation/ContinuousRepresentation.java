@@ -39,6 +39,19 @@ public class ContinuousRepresentation extends Representation {
         return matrix[row][col];
     }
 
+    public void addNoiseDefault(double percentages) {  
+        int n = 6;
+        double[] possVal = { 0.0, 0.2, 0.4, 0.6, 0.8, 1.0 };                                                       
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                double r = rand.nextDouble();
+
+                if (r < (percentages * n / (n - 1)))
+                    matrix[i][j] = possVal[rand.nextInt(n)];
+            }
+        }
+    }
+
     public void addNoise(double[] possibleVal, double[] percentages) {    // possibleVal are possible values in our graph, percentages are their associated probabilities
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {

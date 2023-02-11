@@ -169,7 +169,7 @@ public class DataLoader {
         return m;
     }
 
-    public static ContinuousRepresentation zonesTriangle() {
+    public static ContinuousRepresentation zonesTriangles() {
         ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
@@ -187,22 +187,75 @@ public class DataLoader {
         return m;
     }
 
-    public static ContinuousRepresentation zonesTriangle2() {
+    public static ContinuousRepresentation complexStructure() {
         ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
         ContinuousRepresentation z = new ContinuousRepresentation(400, 400);
-        m.triangle(0, 0, 135, 20, 30, 200, 0.6);
-        x.rectangle(30, 20, 135, 200, 0.2);
-        // x.triangle(400, 0, 400, 200, 200, 200, 0.2);
-        // y.triangle(0, 200, 0, 400, 200, 400, 0.4);
-        // z.triangle(200, 400, 400, 400, 400, 200, 0.8);
+        m.rectangle(100, 100, 300, 300, 0.2);
+        x.rectangle(220, 50, 350, 200, 0.4);
+        // y.triangle(150, 70, 70, 170, 250, 170, 0.3);
+        // z.triangle(40, 250, 210, 250, 210, 350, 0.8);
         m.addRep(x);
         m.addRep(y);
         m.addRep(z);
 
-        double[] possVal = { 0, 0.2, 0.4, 0.6, 0.8 };
-        // m.addNoise(possVal, 0.2);qq
+        m.addNoiseDefault(0.2);
         return m;
     }
+
+    public static ContinuousRepresentation rectangleSimple() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        m.rectangle(50, 50, 200, 200, 0.4);
+
+        m.addNoiseDefault(0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation rectangleDouble() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        m.rectangle(50, 50, 200, 200, 0.4);
+        x.rectangle(270, 150, 350, 300, 0.8);
+        m.addRep(x);
+
+        m.addNoiseDefault(0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation triangleSimple() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        m.triangle(30, 350, 120, 270, 180, 350, 0.8);
+
+        m.addNoiseDefault(0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation complexFirst() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
+        m.rectangle(50, 50, 200, 200, 0.4);
+        x.rectangle(270, 150, 350, 300, 0.6);
+        y.rectangle(30, 270, 180, 350, 0.8);
+        m.addRep(x);
+        m.addRep(y);
+
+        m.addNoiseDefault(0.2);
+        return m;
+    }
+
+    public static ContinuousRepresentation complexSecond() {
+        ContinuousRepresentation m = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation x = new ContinuousRepresentation(400, 400);
+        ContinuousRepresentation y = new ContinuousRepresentation(400, 400);
+        m.rectangle(50, 50, 200, 200, 0.4);
+        x.rectangle(270, 150, 350, 300, 0.6);
+        y.triangle(30, 350, 30, 270, 180, 350, 0.8);
+        m.addRep(x); m.addRep(y);
+
+        m.addNoiseDefault(0.2);
+        return m;
+    }
+
 }

@@ -39,9 +39,9 @@ public class Experimentation {
         c.TYPE = 'n';
         c.NETWORK = false;
         c.SMOOTHING = true;
-        c.THRESHOLD  = true; // mandatory for bary, nested
-        c.PRELIMINARY_METHOD = "OLO";
-        c.EMBEDDED_METHOD = "OLO";
+        c.THRESHOLD = false; // mandatory for bary, nested
+        c.PRELIMINARY_METHOD = "nested";
+        c.EMBEDDED_METHOD = "nested";
         c.CRITERION = "GBS_49"; // GBS_25 for mammals, GBS_49 originally
         /*c.KERNELS = new String[]{
             "GBE_3","GBS_3","GBS_5",
@@ -77,9 +77,16 @@ public class Experimentation {
         // m = DataLoader.Blocks();
         // m = DataLoader.loadMammals();
 
-        // m = DataLoader.zonesRectangle();
-        m = DataLoader.zonesTriangle();
         // m = DataLoader.testBanded();
+        // m = DataLoader.zonesRectangle();
+        // m = DataLoader.zonesTriangles();
+        // m = DataLoader.complexStructure();
+
+        m = DataLoader.rectangleSimple();
+        // m = DataLoader.rectangleDouble();
+        // m = DataLoader.triangleSimple();
+        // m = DataLoader.complexFirst();
+        // m = DataLoader.complexSecond();
         
         // Networks: (set NETWORK flag true !)
         // m = DataLoader.loadNet0(); // assortative
@@ -95,8 +102,8 @@ public class Experimentation {
         HeatMap hm = new HeatMap(m);
         System.out.println("Original score criterion: " + c.getScore(hm));
         GuiHelper.showHeatMap(hm, "original");
-        // hm.shuffle(); //optional - may impact scores for some methods
-        // GuiHelper.showHeatMap(hm, "shuffled");
+        hm.shuffle(); //optional - may impact scores for some methods
+        GuiHelper.showHeatMap(hm, "shuffled");
         HeatMap result = or.Order(hm);
         GuiHelper.showHeatMap(result, "Final order - score: " + c.getScore(result));
     }
